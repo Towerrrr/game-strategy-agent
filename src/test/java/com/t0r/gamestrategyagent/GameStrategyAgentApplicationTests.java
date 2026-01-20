@@ -31,4 +31,20 @@ class GameStrategyAgentApplicationTests {
         Assertions.assertNotNull(answer);
     }
 
+    @Test
+    void doChat() {
+        String chatId = UUID.randomUUID().toString();
+        String message = "我玩的是法师，蜂后要怎么打？";
+        String answer =  gameApp.doChat(message, chatId);
+        Assertions.assertNotNull(answer);
+    }
+
+    @Test
+    void doChatWithRag() {
+        String chatId = UUID.randomUUID().toString();
+        String message = "我玩的是法师，蜂后要怎么打？";
+        String answer =  gameApp.doChatWithRag(message, chatId);
+        Assertions.assertNotNull(answer);
+    }
+
 }
