@@ -34,7 +34,7 @@ class GameStrategyAgentApplicationTests {
     @Test
     void doChat() {
         String chatId = UUID.randomUUID().toString();
-        String message = "我玩的是法师，蜂后要怎么打？";
+        String message = "我玩的是法师，肉山要怎么打？";
         String answer =  gameApp.doChat(message, chatId);
         Assertions.assertNotNull(answer);
     }
