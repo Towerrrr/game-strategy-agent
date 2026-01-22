@@ -47,4 +47,26 @@ class GameStrategyAgentApplicationTests {
         Assertions.assertNotNull(answer);
     }
 
+    @Test
+    void doChatWithTools() {
+        // 测试联网搜索问题的答案
+        testMessage("推荐几个和泰拉类似的游戏？");
+
+        // 测试网页抓取
+        testMessage("最近泰拉有点玩不下去，看看百度网站（baidu.com）有没有什么其他的游戏推荐？");
+
+        // 测试资源下载：图片下载
+        testMessage("直接下载一张泰拉的游玩图片为文件");
+
+        // 测试文件操作
+        testMessage("保存我的游戏档案为文件");
+    }
+
+    private void testMessage(String message) {
+        String chatId = UUID.randomUUID().toString();
+        String answer = gameApp.doChatWithTools(message, chatId);
+        Assertions.assertNotNull(answer);
+    }
+
+
 }
