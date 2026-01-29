@@ -1,5 +1,6 @@
 package com.t0r.gamestrategyagent.app;
 
+import com.t0r.gamestrategyagent.advisor.MyLoggerAdvisor;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -81,7 +82,7 @@ public class GameApp {
                 .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
                         .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
                 // 开启日志，便于观察效果
-//                .advisors(new MyLoggerAdvisor())
+                .advisors(new MyLoggerAdvisor())
                 // 应用知识库问答
                 .advisors(new QuestionAnswerAdvisor(gameAppVectorStore))
                 .call()
@@ -98,7 +99,7 @@ public class GameApp {
                 .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
                         .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
                 // 开启日志，便于观察效果
-//                .advisors(new MyLoggerAdvisor())
+                .advisors(new MyLoggerAdvisor())
                 .tools(allTools)
                 .call()
                 .chatResponse();
