@@ -1,6 +1,7 @@
 package com.t0r.gamestrategyagent.app;
 
 import com.t0r.gamestrategyagent.advisor.MyLoggerAdvisor;
+import com.t0r.gamestrategyagent.chatmemory.FileBasedChatMemory;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -52,12 +53,13 @@ public class GameApp {
                     "你不仅拥有海量的游戏知识库，更擅长根据玩家的实际操作水平、游戏进度和资源情况提供个性化的定制建议。";
         }
 
-        // 2. 初始化基于内存的对话记忆
-        ChatMemory chatMemory = new InMemoryChatMemory();
+        // 2. 初始化基于文件的对话记忆
+        String fileDir = System.getProperty("user.dir") + "/chat-memory";
+        ChatMemory chatMemory = new FileBasedChatMemory(fileDir);
 
         // 3. 构建 ChatClient
         chatClient = ChatClient.builder(dashscopeChatModel)
-                .defaultSystem(systemPrompt) // 使用读取到的文件内容
+                .defaultSystem(systemPrompt)
                 .defaultAdvisors(
                         new MessageChatMemoryAdvisor(chatMemory)
                 )
