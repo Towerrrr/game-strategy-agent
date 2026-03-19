@@ -11,6 +11,10 @@ server:
   port: 8123
   servlet:
     context-path: /api
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
 
 # springdoc-openapi
 springdoc:
@@ -32,4 +36,3 @@ knife4j:
 # searchApi
 search-api:
   api-key: ${AI_SEARCH_API_KEY}
-

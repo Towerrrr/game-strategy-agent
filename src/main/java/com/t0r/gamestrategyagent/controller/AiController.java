@@ -4,6 +4,7 @@ import com.t0r.gamestrategyagent.app.GameApp;
 import jakarta.annotation.Resource;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.tool.ToolCallback;
+import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ public class AiController {
         return gameApp.doChat(message, chatId);
     }
 
-    @GetMapping(value = "/game_app/chat/sse")
+    @GetMapping(value = "/game_app/chat/sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE + ";charset=UTF-8")
     public Flux<ServerSentEvent<String>> doChatWithGameAppSSE(String message, String chatId) {
         return gameApp.doChatByStream(message, chatId)
                 .map(chunk -> ServerSentEvent.<String>builder()
@@ -39,7 +40,7 @@ public class AiController {
                         .build());
     }
 
-    @GetMapping("/game_app/chat/sse/emitter")
+    @GetMapping(value = "/game_app/chat/sse/emitter", produces = MediaType.TEXT_EVENT_STREAM_VALUE + ";charset=UTF-8")
     public SseEmitter doChatWithGameAppSseEmitter(String message, String chatId) {
         // 创建一个超时时间较长的 SseEmitter
         SseEmitter emitter = new SseEmitter(180000L); // 3分钟超时
